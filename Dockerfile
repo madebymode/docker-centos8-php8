@@ -2,7 +2,7 @@ FROM centos:8
 MAINTAINER madebymode
 
 RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm \
-    install https://rpms.remirepo.net/enterprise/remi-release-8.rpm \
+    https://rpms.remirepo.net/enterprise/remi-release-8.rpm \
     yum-utils \ 
     && dnf module reset php \
     && dnf module install php:remi-8.0 -y \
