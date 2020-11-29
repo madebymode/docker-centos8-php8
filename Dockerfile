@@ -1,26 +1,19 @@
-FROM centos:7
+FROM centos:8
 MAINTAINER madebymode
 
-RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-RUN rpm -Uvh https://repo.ius.io/ius-release-el7.rpm
-#php71u is archived
-RUN yum-config-manager --enable ius-archive
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm \
+    https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    yum-utils
+    && dnf module reset php
+    && dnf module install php:remi-8.0 -y
+    && dnf install php -y
 
 # Update and install latest packages and prerequisites
-RUN yum update -y \
-    && yum install -y --nogpgcheck --setopt=tsflags=nodocs \
-        php71u-cli \
-        php71u-common \
-        php71u-fpm \
-        php71u-gd \
-        php71u-mbstring \
-        php71u-mysqlnd \
-        php71u-xml \
-        php71u-json \
-        php71u-intl \
+RUN dnf update -y \
+    && dnf install -y --nogpgcheck --setopt=tsflags=nodocs \
         zip \
         unzip \
-    && yum clean all && yum history new
+    && dnf clean all && dnf history new
     
 RUN curl -sS https://getcomposer.org/installer | php -- --version=1.10.17 --install-dir=/usr/local/bin --filename=composer
 
