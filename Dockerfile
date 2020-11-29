@@ -6,7 +6,7 @@ RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
     yum-utils \ 
     && dnf module reset php \
     && dnf module install php:remi-8.0 -y \
-    && dnf install php -y 
+    && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
 
 # Update and install latest packages and prerequisites
 RUN dnf update -y \
