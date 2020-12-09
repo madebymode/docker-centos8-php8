@@ -14,14 +14,16 @@ RUN dnf update -y \
         zip \
         unzip \
     && dnf clean all && dnf history new
-    
+
 RUN curl -sS https://getcomposer.org/installer | php -- --version=1.10.17 --install-dir=/usr/local/bin --filename=composer
 
-RUN sed -e 's/127.0.0.1:9000/9000/' \
+RUN sed -e 's/\/run\/php\-fpm\/www.sock/9000/' \
         -e '/allowed_clients/d' \
         -e '/catch_workers_output/s/^;//' \
         -e '/error_log/d' \
         -i /etc/php-fpm.d/www.conf
+
+RUN mkdir /run/php-fpm
 
 CMD ["php-fpm", "-F"]
 
