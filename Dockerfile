@@ -8,6 +8,9 @@ RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
     && dnf module install php:remi-8.0 -y \
     && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php  php80-php-gd
 
+# Write the gd extension config to enable the config
+RUN echo 'extension=/opt/remi/php80/root/usr/lib64/php/modules/gd.so' > /etc/php.d/20-gd.ini
+
 # Update and install latest packages and prerequisites
 RUN dnf update -y \
     && dnf install -y --nogpgcheck --setopt=tsflags=nodocs \
