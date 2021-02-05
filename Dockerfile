@@ -7,7 +7,8 @@ RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
     && dnf module reset php \
     && dnf module install php:remi-8.0 -y \
     && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
-    php80-php-gd php80-php-mysqlnd
+    php80-php-gd php80-php-mysqlnd \
+    mysql rsync
 
 # Copy BH PHP ini
 COPY etc/php.d/20-bh.ini /etc/php.d/20-bh.ini
