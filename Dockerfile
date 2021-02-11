@@ -15,7 +15,7 @@ COPY etc/php.d/20-bh.ini /etc/php.d/20-bh.ini
 
 # cheeseboard image processor
 RUN wget -O wkhtmltox-0.12.6-1.centos8.x86_64.rpm https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos8.x86_64.rpm \
-    && dnf localinstall wkhtmltox-0.12.6-1.centos8.x86_64.rpm
+    && dnf localinstall -y wkhtmltox-0.12.6-1.centos8.x86_64.rpm
 
 
 # Update and install latest packages and prerequisites
