@@ -8,10 +8,15 @@ RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
     && dnf module install php:remi-8.0 -y \
     && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
     php80-php-gd php80-php-mysqlnd \
-    mysql rsync
+    mysql rsync wget
 
 # Copy BH PHP ini
 COPY etc/php.d/20-bh.ini /etc/php.d/20-bh.ini
+
+# cheeseboard image processor
+RUN wget -O wkhtmltox-0.12.6-1.centos8.x86_64.rpm https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos8.x86_64.rpm \
+&& dnf localinstall wkhtmltox-0.12.6-1.centos8.x86_64.rpm
+
 
 # Update and install latest packages and prerequisites
 RUN dnf update -y \
