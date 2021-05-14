@@ -26,7 +26,7 @@ RUN dnf update -y \
         unzip \
     && dnf clean all && dnf history new
 
-RUN curl -sS https://getcomposer.org/installer | php -- --version=1.10.17 --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php --  --install-dir=/usr/local/bin --filename=composer
 
 RUN sed -e 's/\/run\/php\-fpm\/www.sock/9000/' \
         -e '/allowed_clients/d' \
