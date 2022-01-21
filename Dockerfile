@@ -1,23 +1,28 @@
 FROM centos:8
 MAINTAINER madebymode
 
-RUN dnf -y  --nogpgcheck  install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm \
-    https://rpms.remirepo.net/enterprise/remi-release-8.rpm \
-    yum-utils \ 
+# update dnf
+RUN dnf -y update
+RUN dnf -y install dnf-utils
+RUN dnf clean all
+
+# install epel-release
+RUN dnf -y install epel-release
+
+
+# install remi repo
+RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+
+RUN dnf -y  yum-utils \ 
     && dnf module reset php \
-    && dnf  --nogpgcheck  module install php:remi-8.0 -y \
-    && dnf  --nogpgcheck  install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
+    && dnf module install php:remi-8.0 -y \
+    && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
     php80-php-gd php80-php-mysqlnd \
     mysql rsync wget git \
     php-pecl-xdebug3
 
 # Copy BH PHP ini
 COPY etc/php.d/20-bh.ini /etc/php.d/20-bh.ini
-
-# cheeseboard image processor
-RUN wget -O wkhtmltox-0.12.6-1.centos8.x86_64.rpm https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos8.x86_64.rpm \
-    && dnf localinstall -y wkhtmltox-0.12.6-1.centos8.x86_64.rpm
-
 
 # Update and install latest packages and prerequisites
 RUN dnf update -y \
