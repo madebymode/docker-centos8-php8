@@ -13,8 +13,7 @@ RUN dnf -y install epel-release
 # install remi repo
 RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
-RUN dnf -y  yum-utils \ 
-    && dnf module reset php \
+RUN dnf -y install yum-utils \ 
     && dnf module install php:remi-8.0 -y \
     && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
     php80-php-gd php80-php-mysqlnd \
