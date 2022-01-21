@@ -1,12 +1,12 @@
 FROM centos:8
 MAINTAINER madebymode
 
-RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm \
+RUN dnf -y  --nogpgcheck  install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm \
     https://rpms.remirepo.net/enterprise/remi-release-8.rpm \
     yum-utils \ 
     && dnf module reset php \
-    && dnf module install php:remi-8.0 -y \
-    && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
+    && dnf  --nogpgcheck  module install php:remi-8.0 -y \
+    && dnf  --nogpgcheck  install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
     php80-php-gd php80-php-mysqlnd \
     mysql rsync wget git \
     php-pecl-xdebug3
