@@ -15,7 +15,7 @@ RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
 RUN dnf -y install yum-utils \ 
     && dnf module install php:remi-8.0 -y \
-    && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php \
+    && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php php80-php-pecl-zip php80-libzip \
     php80-php-gd php80-php-mysqlnd \
     mysql rsync wget git \
     php-pecl-xdebug3
