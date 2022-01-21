@@ -13,15 +13,17 @@ RUN dnf -y install epel-release
 # install remi repo
 RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
-RUN dnf -y install yum-utils \ 
-    && dnf module install php:remi-8.0 -y \
-    && dnf install -y php80-php-common php80-php-fpm php80 php80-php-cli php80-php php80-php-pecl-zip php80-libzip \
-    php80-php-gd php80-php-mysqlnd \
-    mysql rsync wget git \
-    php-pecl-xdebug3
+# reset php
+RUN  dnf module reset php -y    
 
-# Copy BH PHP ini
-COPY etc/php.d/20-bh.ini /etc/php.d/20-bh.ini
+# enable php8.0
+RUN dnf module install php:remi-8.0 -y
+
+# other binaries
+RUN dnf -y install yum-utils mysql rsync wget git 
+
+# correct php install
+RUN  dnf -y install php-{cli,fpm,mysqlnd,zip,devel,gd,mbstring,curl,xml,pear,bcmath,json}
 
 # Update and install latest packages and prerequisites
 RUN dnf update -y \
